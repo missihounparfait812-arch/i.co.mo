@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Catalogue de produits I.CO.MO — Meubles et ouvrages en bois sur mesure. Armoires, lits, tables, cuisines, dressings et plus.">
+    <title>Nos Produits — I.CO.MO</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ========================================
+         HEADER
+    ========================================= -->
+    <header class="header" id="header">
+        <div class="header__inner">
+            <a href="index.html" class="header__logo">
+                <span class="header__logo-icon">I</span>
+                I.CO.MO
+            </a>
+            <nav class="header__nav" id="main-nav">
+                <a href="index.html" class="header__nav-link">Accueil</a>
+                <a href="produits.html" class="header__nav-link active">Produits</a>
+                <a href="index.html#realisations" class="header__nav-link">Réalisations</a>
+                <a href="index.html#a-propos" class="header__nav-link">À propos</a>
+                <a href="index.html#localisation" class="header__nav-link">Localisation</a>
+                <a href="contact.html" class="header__nav-link">Contact</a>
+            </nav>
+            <div class="header__actions">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Mode sombre">🌙</button>
+                <a href="panier.html" class="header__cart" title="Panier">
+                    🛒
+                    <span class="header__cart-badge" id="cart-badge">0</span>
+                </a>
+                <button class="btn btn--whatsapp btn--sm" onclick="commanderWhatsApp()">
+                    💬 WhatsApp
+                </button>
+                <div class="hamburger" id="hamburger">
+                    <span class="hamburger__line"></span>
+                    <span class="hamburger__line"></span>
+                    <span class="hamburger__line"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <!-- ========================================
+         PAGE HEADER
+    ========================================= -->
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-header__title">Nos Produits</h1>
+            <div class="page-header__breadcrumb">
+                <a href="index.html">Accueil</a>
+                <span>/</span>
+                <span>Produits</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         FILTRES & PRODUITS
+    ========================================= -->
+    <section class="section">
+        <div class="container">
+            <!-- Filtres -->
+            <div class="filters">
+                <div class="search-box">
+                    <span class="search-box__icon">🔍</span>
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        class="search-box__input" 
+                        placeholder="Rechercher un produit..."
+                        autocomplete="off"
+                    >
+                </div>
+                <div class="filter-group">
+                    <select id="category-filter" class="filter-select">
+                        <option value="all">Toutes les catégories</option>
+                        <option value="Armoire">Armoires</option>
+                        <option value="Lit">Lits</option>
+                        <option value="Table">Tables</option>
+                        <option value="Chaise">Chaises</option>
+                        <option value="Porte">Portes</option>
+                        <option value="Dressing">Dressings</option>
+                        <option value="Meuble TV">Meubles TV</option>
+                        <option value="Bureau">Bureaux</option>
+                        <option value="Cuisine">Cuisines</option>
+                        <option value="Bibliothèque">Bibliothèques</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <select id="price-filter" class="filter-select">
+                        <option value="all">Tous les prix</option>
+                        <option value="0-50000">0 - 50 000 FCFA</option>
+                        <option value="50000-150000">50 000 - 150 000 FCFA</option>
+                        <option value="150000-300000">150 000 - 300 000 FCFA</option>
+                        <option value="300000+">300 000+ FCFA</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Filter Tags -->
+            <div class="filter-tags" style="margin-bottom: var(--space-6);">
+                <button class="filter-tag active" data-category="all">Tous</button>
+                <button class="filter-tag" data-category="Armoire">Armoires</button>
+                <button class="filter-tag" data-category="Lit">Lits</button>
+                <button class="filter-tag" data-category="Table">Tables</button>
+                <button class="filter-tag" data-category="Chaise">Chaises</button>
+                <button class="filter-tag" data-category="Porte">Portes</button>
+                <button class="filter-tag" data-category="Dressing">Dressings</button>
+                <button class="filter-tag" data-category="Meuble TV">Meubles TV</button>
+                <button class="filter-tag" data-category="Bureau">Bureaux</button>
+                <button class="filter-tag" data-category="Cuisine">Cuisines</button>
+                <button class="filter-tag" data-category="Bibliothèque">Bibliothèques</button>
+            </div>
+
+            <!-- Compteur -->
+            <p id="products-count" style="margin-bottom: var(--space-4); color: var(--text-muted); font-size: var(--fs-sm);">
+                Chargement...
+            </p>
+
+            <!-- Grille de produits -->
+            <div class="products-grid" id="products-container"></div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FOOTER
+    ========================================= -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__brand">
+                    <h3>I.CO.MO</h3>
+                    <p>L'art de transformer le bois en qualité. Conception et fabrication de meubles et ouvrages en bois sur mesure.</p>
+                </div>
+                <div>
+                    <h4 class="footer__title">Navigation</h4>
+                    <div class="footer__links">
+                        <a href="index.html" class="footer__link">Accueil</a>
+                        <a href="produits.html" class="footer__link">Produits</a>
+                        <a href="index.html#realisations" class="footer__link">Réalisations</a>
+                        <a href="index.html#a-propos" class="footer__link">À propos</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer__title">Services</h4>
+                    <div class="footer__links">
+                        <a href="contact.html" class="footer__link">Contact</a>
+                        <a href="index.html#localisation" class="footer__link">Localisation</a>
+                        <a href="panier.html" class="footer__link">Panier</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer__title">Contact</h4>
+                    <div class="footer__links">
+                        <a href="#" onclick="ouvrirWhatsApp(); return false;" class="footer__link">💬 WhatsApp</a>
+                        <a href="tel:+225XXXXXXXXXX" class="footer__link">📞 Téléphone</a>
+                        <a href="mailto:contact@icomo.ci" class="footer__link">📧 Email</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                © 2026 I.CO.MO — Tous droits réservés.
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <button class="whatsapp-float" onclick="ouvrirWhatsApp()" title="Contacter via WhatsApp">
+        <div class="whatsapp-float__pulse"></div>
+        💬
+    </button>
+    <button class="scroll-top" id="scroll-top" title="Retour en haut">↑</button>
+
+    <!-- Scripts -->
+    <script src="js/produits.js"></script>
+    <script src="js/panier.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initPageProduits();
+        });
+    </script>
+
+</body>
+</html>

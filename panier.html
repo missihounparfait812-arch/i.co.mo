@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Votre panier — I.CO.MO Menuiserie. Consultez et gérez vos articles avant de commander.">
+    <title>Panier — I.CO.MO</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ========================================
+         HEADER
+    ========================================= -->
+    <header class="header" id="header">
+        <div class="header__inner">
+            <a href="index.html" class="header__logo">
+                <span class="header__logo-icon">I</span>
+                I.CO.MO
+            </a>
+            <nav class="header__nav" id="main-nav">
+                <a href="index.html" class="header__nav-link">Accueil</a>
+                <a href="produits.html" class="header__nav-link">Produits</a>
+                <a href="index.html#realisations" class="header__nav-link">Réalisations</a>
+                <a href="index.html#a-propos" class="header__nav-link">À propos</a>
+                <a href="index.html#localisation" class="header__nav-link">Localisation</a>
+                <a href="contact.html" class="header__nav-link">Contact</a>
+            </nav>
+            <div class="header__actions">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Mode sombre">🌙</button>
+                <a href="panier.html" class="header__cart" title="Panier" style="color: var(--color-accent);">
+                    🛒
+                    <span class="header__cart-badge" id="cart-badge">0</span>
+                </a>
+                <button class="btn btn--whatsapp btn--sm" onclick="commanderWhatsApp()">
+                    💬 WhatsApp
+                </button>
+                <div class="hamburger" id="hamburger">
+                    <span class="hamburger__line"></span>
+                    <span class="hamburger__line"></span>
+                    <span class="hamburger__line"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <!-- ========================================
+         PAGE HEADER
+    ========================================= -->
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-header__title">Mon Panier</h1>
+            <div class="page-header__breadcrumb">
+                <a href="index.html">Accueil</a>
+                <span>/</span>
+                <span>Panier</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         CONTENU DU PANIER
+    ========================================= -->
+    <section class="cart-page">
+        <div class="container" id="cart-container">
+            <!-- Contenu injecté par JavaScript -->
+        </div>
+    </section>
+
+    <!-- ========================================
+         FOOTER
+    ========================================= -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__brand">
+                    <h3>I.CO.MO</h3>
+                    <p>L'art de transformer le bois en qualité.</p>
+                </div>
+                <div>
+                    <h4 class="footer__title">Navigation</h4>
+                    <div class="footer__links">
+                        <a href="index.html" class="footer__link">Accueil</a>
+                        <a href="produits.html" class="footer__link">Produits</a>
+                        <a href="contact.html" class="footer__link">Contact</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer__title">Services</h4>
+                    <div class="footer__links">
+                        <a href="index.html#localisation" class="footer__link">Localisation</a>
+                        <a href="panier.html" class="footer__link">Panier</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer__title">Contact</h4>
+                    <div class="footer__links">
+                        <a href="#" onclick="ouvrirWhatsApp(); return false;" class="footer__link">💬 WhatsApp</a>
+                        <a href="mailto:contact@icomo.ci" class="footer__link">📧 Email</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                © 2026 I.CO.MO — Tous droits réservés.
+            </div>
+        </div>
+    </footer>
+
+    <button class="whatsapp-float" onclick="ouvrirWhatsApp()" title="Contacter via WhatsApp">
+        <div class="whatsapp-float__pulse"></div>
+        💬
+    </button>
+    <button class="scroll-top" id="scroll-top" title="Retour en haut">↑</button>
+
+    <!-- Scripts -->
+    <script src="js/produits.js"></script>
+    <script src="js/panier.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            afficherPagePanier();
+        });
+    </script>
+
+</body>
+</html>

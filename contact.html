@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contactez I.CO.MO — Menuiserie professionnelle. Téléphone, WhatsApp, Email et adresse.">
+    <title>Contact — I.CO.MO</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ========================================
+         HEADER
+    ========================================= -->
+    <header class="header" id="header">
+        <div class="header__inner">
+            <a href="index.html" class="header__logo">
+                <span class="header__logo-icon">I</span>
+                I.CO.MO
+            </a>
+            <nav class="header__nav" id="main-nav">
+                <a href="index.html" class="header__nav-link">Accueil</a>
+                <a href="produits.html" class="header__nav-link">Produits</a>
+                <a href="index.html#realisations" class="header__nav-link">Réalisations</a>
+                <a href="index.html#a-propos" class="header__nav-link">À propos</a>
+                <a href="index.html#localisation" class="header__nav-link">Localisation</a>
+                <a href="contact.html" class="header__nav-link active">Contact</a>
+            </nav>
+            <div class="header__actions">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Mode sombre">🌙</button>
+                <a href="panier.html" class="header__cart" title="Panier">
+                    🛒
+                    <span class="header__cart-badge" id="cart-badge">0</span>
+                </a>
+                <button class="btn btn--whatsapp btn--sm" onclick="commanderWhatsApp()">
+                    💬 WhatsApp
+                </button>
+                <div class="hamburger" id="hamburger">
+                    <span class="hamburger__line"></span>
+                    <span class="hamburger__line"></span>
+                    <span class="hamburger__line"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <!-- ========================================
+         PAGE HEADER
+    ========================================= -->
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-header__title">Contactez-nous</h1>
+            <div class="page-header__breadcrumb">
+                <a href="index.html">Accueil</a>
+                <span>/</span>
+                <span>Contact</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         CONTENU CONTACT
+    ========================================= -->
+    <section class="contact-page">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Informations de contact -->
+                <div class="contact-info">
+                    <h2 style="font-family: var(--font-heading); font-size: var(--fs-xl); margin-bottom: var(--space-6);">
+                        Nos coordonnées
+                    </h2>
+                    
+                    <div class="contact-info__item">
+                        <div class="contact-info__icon">📞</div>
+                        <div>
+                            <div class="contact-info__label">Téléphone</div>
+                            <div class="contact-info__value">+225 XX XX XX XX XX</div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info__item">
+                        <div class="contact-info__icon">💬</div>
+                        <div>
+                            <div class="contact-info__label">WhatsApp</div>
+                            <div class="contact-info__value">+225 XX XX XX XX XX</div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info__item">
+                        <div class="contact-info__icon">📧</div>
+                        <div>
+                            <div class="contact-info__label">Email</div>
+                            <div class="contact-info__value">contact@icomo.ci</div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info__item">
+                        <div class="contact-info__icon">📍</div>
+                        <div>
+                            <div class="contact-info__label">Adresse</div>
+                            <div class="contact-info__value">Abidjan, Côte d'Ivoire</div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info__item">
+                        <div class="contact-info__icon">🕐</div>
+                        <div>
+                            <div class="contact-info__label">Horaires d'ouverture</div>
+                            <div class="contact-info__value">Lun — Sam : 08h00 - 18h00</div>
+                            <div class="contact-info__value" style="color: var(--text-muted); font-size: var(--fs-sm);">Dimanche : Fermé</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: var(--space-8);">
+                        <button class="btn btn--whatsapp btn--block btn--lg" onclick="ouvrirWhatsApp()">
+                            💬 Contacter I.CO.MO sur WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Formulaire de contact -->
+                <div class="contact-form">
+                    <h2 style="font-family: var(--font-heading); font-size: var(--fs-xl); margin-bottom: var(--space-6);">
+                        Envoyez-nous un message
+                    </h2>
+                    
+                    <form onsubmit="envoyerMessageContact(event)">
+                        <div class="form-group">
+                            <label class="form-label" for="contact-nom">Nom complet *</label>
+                            <input type="text" id="contact-nom" class="form-input" placeholder="Votre nom complet" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="contact-email">Email</label>
+                            <input type="email" id="contact-email" class="form-input" placeholder="votre@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="contact-telephone">Téléphone *</label>
+                            <input type="tel" id="contact-telephone" class="form-input" placeholder="Ex: 07 XX XX XX XX" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="contact-sujet">Sujet</label>
+                            <select id="contact-sujet" class="form-select">
+                                <option value="">Sélectionnez un sujet</option>
+                                <option value="devis">Demande de devis</option>
+                                <option value="commande">Suivi de commande</option>
+                                <option value="information">Demande d'information</option>
+                                <option value="reclamation">Réclamation</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="contact-message">Message *</label>
+                            <textarea id="contact-message" class="form-textarea" placeholder="Décrivez votre besoin..." rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn--primary btn--block btn--lg">
+                            📧 Envoyer le message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FOOTER
+    ========================================= -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__brand">
+                    <h3>I.CO.MO</h3>
+                    <p>L'art de transformer le bois en qualité.</p>
+                </div>
+                <div>
+                    <h4 class="footer__title">Navigation</h4>
+                    <div class="footer__links">
+                        <a href="index.html" class="footer__link">Accueil</a>
+                        <a href="produits.html" class="footer__link">Produits</a>
+                        <a href="contact.html" class="footer__link">Contact</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer__title">Services</h4>
+                    <div class="footer__links">
+                        <a href="index.html#localisation" class="footer__link">Localisation</a>
+                        <a href="panier.html" class="footer__link">Panier</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer__title">Contact</h4>
+                    <div class="footer__links">
+                        <a href="#" onclick="ouvrirWhatsApp(); return false;" class="footer__link">💬 WhatsApp</a>
+                        <a href="mailto:contact@icomo.ci" class="footer__link">📧 Email</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                © 2026 I.CO.MO — Tous droits réservés.
+            </div>
+        </div>
+    </footer>
+
+    <button class="whatsapp-float" onclick="ouvrirWhatsApp()" title="Contacter via WhatsApp">
+        <div class="whatsapp-float__pulse"></div>
+        💬
+    </button>
+    <button class="scroll-top" id="scroll-top" title="Retour en haut">↑</button>
+
+    <!-- Scripts -->
+    <script src="js/produits.js"></script>
+    <script src="js/panier.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        /**
+         * Envoie le message de contact via WhatsApp
+         * @param {Event} e
+         */
+        function envoyerMessageContact(e) {
+            e.preventDefault();
+            
+            const nom = document.getElementById('contact-nom').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const telephone = document.getElementById('contact-telephone').value.trim();
+            const sujet = document.getElementById('contact-sujet').value;
+            const messageTexte = document.getElementById('contact-message').value.trim();
+            
+            if (!nom || !telephone || !messageTexte) {
+                afficherNotification('Veuillez remplir tous les champs obligatoires.', 'error');
+                return;
+            }
+            
+            let message = `Bonjour I.CO.MO,\n\n`;
+            message += `📝 MESSAGE DE CONTACT\n\n`;
+            message += `Nom : ${nom}\n`;
+            if (email) message += `Email : ${email}\n`;
+            message += `Téléphone : ${telephone}\n`;
+            if (sujet) message += `Sujet : ${sujet}\n`;
+            message += `\nMessage :\n${messageTexte}\n\nMerci.`;
+            
+            window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(message)}`, '_blank');
+            
+            afficherNotification('✓ Message envoyé via WhatsApp !', 'success');
+            e.target.reset();
+        }
+    </script>
+
+</body>
+</html>

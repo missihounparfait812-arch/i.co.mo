@@ -432,14 +432,33 @@ function envoyerCommandeWhatsApp(e) {
 }
 
 /**
- * Sauvegarde une commande locale dans localStorage
+ * Sauvegarde une commande dans la base SQLite (et en fallback local)
  * @param {Object} commande - Données de la commande
  */
-function sauvegarderCommandeLocale(commande) {
+async function sauvegarderCommandeLocale(commande) {
+    // 1. Sauvegarde dans localStorage pour accès hors ligne
     const commandes = JSON.parse(localStorage.getItem('icomo_commandes')) || [];
     commande.id = commandes.length + 1;
     commandes.push(commande);
     localStorage.setItem('icomo_commandes', JSON.stringify(commandes));
+
+    // 2. Envoi au backend SQLite si disponible
+    if (typeof API !== 'undefined') {
+        try {
+            await API.createCommande({
+                client_nom: commande.client.nom,
+                client_telephone: commande.client.telephone,
+                client_adresse: commande.client.adresse,
+                client_commune: commande.client.ville,
+                notes: commande.message || '',
+                articles: commande.articles,
+                whatsapp_envoyee: 1
+            });
+            console.log('[Panier] Commande enregistrée avec succès dans la base de données.');
+        } catch (err) {
+            console.warn('[Panier] Erreur enregistrement commande backend :', err.message);
+        }
+    }
 }
 
 /**

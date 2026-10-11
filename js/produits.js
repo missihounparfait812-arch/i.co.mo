@@ -20,7 +20,7 @@ const produitsInitiaux = [
         nom: "Armoire Moderne",
         categorie: "Armoire",
         prix: 150000,
-        image: "",
+        image: "images/armoire-moderne.jpg",
         description: "Armoire moderne fabriquée sur mesure en bois massif de qualité supérieure. Design épuré avec des finitions soignées pour un rangement optimal et élégant.",
         disponible: true,
         dimensions: "200 x 120 x 60 cm",
@@ -32,7 +32,7 @@ const produitsInitiaux = [
         nom: "Lit King Size Luxe",
         categorie: "Lit",
         prix: 250000,
-        image: "",
+        image: "images/lit-king-size.jpg",
         description: "Lit king size luxueux avec tête de lit sculptée. Structure robuste en bois massif avec des détails artisanaux qui apportent une touche d'élégance à votre chambre.",
         disponible: true,
         dimensions: "220 x 200 x 130 cm",
@@ -44,7 +44,7 @@ const produitsInitiaux = [
         nom: "Table à Manger Familiale",
         categorie: "Table",
         prix: 180000,
-        image: "",
+        image: "images/table-manger.jpg",
         description: "Grande table à manger pour 8 personnes, idéale pour les repas en famille. Fabriquée en bois massif avec un plateau épais et des pieds sculptés.",
         disponible: true,
         dimensions: "200 x 100 x 76 cm",
@@ -56,7 +56,7 @@ const produitsInitiaux = [
         nom: "Chaise Design Confort",
         categorie: "Chaise",
         prix: 35000,
-        image: "",
+        image: "images/chaise-design.jpg",
         description: "Chaise design alliant confort et esthétique. Assise ergonomique avec dossier incurvé pour un confort optimal au quotidien.",
         disponible: true,
         dimensions: "90 x 45 x 50 cm",
@@ -68,7 +68,7 @@ const produitsInitiaux = [
         nom: "Dressing Complet",
         categorie: "Dressing",
         prix: 350000,
-        image: "",
+        image: "images/dressing-complet.jpg",
         description: "Dressing complet avec portes coulissantes, miroir intégré et éclairage LED. Organisation optimale avec étagères, tiroirs et penderies.",
         disponible: true,
         dimensions: "300 x 250 x 65 cm",
@@ -80,7 +80,7 @@ const produitsInitiaux = [
         nom: "Meuble TV Contemporain",
         categorie: "Meuble TV",
         prix: 120000,
-        image: "",
+        image: "images/meuble-tv.jpg",
         description: "Meuble TV contemporain avec rangements intégrés et passage de câbles discret. Design moderne pour sublimer votre salon.",
         disponible: true,
         dimensions: "180 x 45 x 55 cm",
@@ -92,7 +92,7 @@ const produitsInitiaux = [
         nom: "Porte Principale Sculptée",
         categorie: "Porte",
         prix: 200000,
-        image: "",
+        image: "images/porte-sculptee.jpg",
         description: "Porte principale en bois massif avec sculptures artisanales. Imposante et sécurisée, elle donne un caractère unique à l'entrée de votre maison.",
         disponible: true,
         dimensions: "220 x 100 x 8 cm",
@@ -104,7 +104,7 @@ const produitsInitiaux = [
         nom: "Bureau Directorial",
         categorie: "Bureau",
         prix: 280000,
-        image: "",
+        image: "images/bureau-directorial.jpg",
         description: "Bureau directorial spacieux avec tiroirs verrouillables et plateau en cuir. Parfait pour un espace de travail professionnel et prestigieux.",
         disponible: true,
         dimensions: "180 x 90 x 76 cm",
@@ -116,7 +116,7 @@ const produitsInitiaux = [
         nom: "Cuisine Équipée Premium",
         categorie: "Cuisine",
         prix: 500000,
-        image: "",
+        image: "images/cuisine-equipee.jpg",
         description: "Cuisine équipée complète sur mesure. Meubles hauts et bas, plan de travail en granit, finitions laquées et accessoires de rangement intégrés.",
         disponible: false,
         dimensions: "Sur mesure",
@@ -128,7 +128,7 @@ const produitsInitiaux = [
         nom: "Bibliothèque Murale",
         categorie: "Bibliothèque",
         prix: 160000,
-        image: "",
+        image: "images/bibliotheque-murale.jpg",
         description: "Bibliothèque murale avec étagères réglables en hauteur. Design moderne et épuré pour organiser vos livres et objets décoratifs.",
         disponible: true,
         dimensions: "240 x 180 x 35 cm",
@@ -145,8 +145,62 @@ const produitsInitiaux = [
  * Initialise les produits dans localStorage si non existants
  */
 function initProduits() {
-    if (!localStorage.getItem('icomo_produits')) {
+    const stored = localStorage.getItem('icomo_produits');
+    if (!stored) {
         localStorage.setItem('icomo_produits', JSON.stringify(produitsInitiaux));
+    } else {
+        try {
+            const produits = JSON.parse(stored);
+            let misAJour = false;
+            produits.forEach(p => {
+                if (!p.image) {
+                    const original = produitsInitiaux.find(item => item.id === p.id);
+                    if (original && original.image) {
+                        p.image = original.image;
+                        misAJour = true;
+                    }
+                }
+            });
+            if (misAJour) {
+                localStorage.setItem('icomo_produits', JSON.stringify(produits));
+            }
+        } catch (e) {
+            localStorage.setItem('icomo_produits', JSON.stringify(produitsInitiaux));
+        }
+    }
+
+    // Déclencher la synchronisation en arrière-plan avec l'API
+    if (typeof API !== 'undefined') {
+        synchroniserProduitsAvecAPI();
+    }
+}
+
+/**
+ * Synchronise la liste des produits avec le backend SQLite
+ */
+async function synchroniserProduitsAvecAPI() {
+    try {
+        const res = await API.getProduits();
+        if (res && res.success && Array.isArray(res.data) && res.data.length > 0) {
+            const produitsFormat = res.data.map(p => ({
+                id: p.id,
+                nom: p.nom,
+                categorie: p.categorie_nom || p.categorie || 'Autre',
+                prix: p.prix,
+                image: p.image,
+                images: p.images || [],
+                description: p.description || '',
+                disponible: Boolean(p.disponible),
+                dimensions: p.dimensions || '',
+                materiau: p.materiau || '',
+                couleur: p.couleur || '',
+                sur_mesure: Boolean(p.sur_mesure),
+                quantite: p.quantite || 0
+            }));
+            localStorage.setItem('icomo_produits', JSON.stringify(produitsFormat));
+        }
+    } catch (e) {
+        // Mode hors ligne : continue avec le cache
     }
 }
 

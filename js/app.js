@@ -21,7 +21,7 @@ const CONFIG = {
     slogan: "L'art de transformer le bois en qualité.",
     telephone: '+225 XX XX XX XX XX',
     email: 'contact@icomo.ci',
-    whatsapp: NUMERO_WHATSAPP,
+    whatsapp: typeof NUMERO_WHATSAPP !== 'undefined' ? NUMERO_WHATSAPP : '225XXXXXXXXXX',
     adresse: 'Abidjan, Côte d\'Ivoire',
     horaires: 'Lun - Sam : 08h00 - 18h00'
 };
@@ -330,10 +330,11 @@ function marquerLienActif() {
  * Ouvre WhatsApp avec un message par défaut
  */
 function ouvrirWhatsApp() {
+    const num = typeof NUMERO_WHATSAPP !== 'undefined' ? NUMERO_WHATSAPP : (CONFIG.whatsapp || '225XXXXXXXXXX');
     const message = encodeURIComponent(
         `Bonjour I.CO.MO,\n\nJe souhaite avoir plus d'informations sur vos produits et services.\n\nMerci.`
     );
-    window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${message}`, '_blank');
+    window.open(`https://wa.me/${num}?text=${message}`, '_blank');
 }
 
 /**
@@ -347,13 +348,13 @@ function commanderWhatsApp() {
 // GALERIE / RÉALISATIONS
 // ============================================
 const realisations = [
-    { titre: "Cuisine sur mesure", categorie: "Cuisine", description: "Cuisine équipée complète avec finitions haut de gamme" },
-    { titre: "Dressing luxueux", categorie: "Dressing", description: "Dressing complet avec portes coulissantes" },
-    { titre: "Lit en bois massif", categorie: "Lit", description: "Lit king size en teck massif sculpté" },
-    { titre: "Porte d'entrée sculptée", categorie: "Porte", description: "Porte principale en acajou avec sculptures artisanales" },
-    { titre: "Meuble TV design", categorie: "Meuble TV", description: "Meuble TV contemporain en bois et métal" },
-    { titre: "Table familiale", categorie: "Table", description: "Grande table en bois massif pour 10 personnes" },
-    { titre: "Bureau présidentiel", categorie: "Bureau", description: "Bureau directorial en bois noble avec détails en cuir" }
+    { titre: "Cuisine sur mesure", categorie: "Cuisine", description: "Cuisine équipée complète avec finitions haut de gamme", image: "images/cuisine-equipee.jpg" },
+    { titre: "Dressing luxueux", categorie: "Dressing", description: "Dressing complet avec portes coulissantes", image: "images/dressing-complet.jpg" },
+    { titre: "Lit en bois massif", categorie: "Lit", description: "Lit king size en teck massif sculpté", image: "images/lit-king-size.jpg" },
+    { titre: "Porte d'entrée sculptée", categorie: "Porte", description: "Porte principale en acajou avec sculptures artisanales", image: "images/porte-sculptee.jpg" },
+    { titre: "Meuble TV design", categorie: "Meuble TV", description: "Meuble TV contemporain en bois et métal", image: "images/meuble-tv.jpg" },
+    { titre: "Table familiale", categorie: "Table", description: "Grande table en bois massif pour 8 à 10 personnes", image: "images/table-manger.jpg" },
+    { titre: "Bureau présidentiel", categorie: "Bureau", description: "Bureau directorial en bois noble avec détails en cuir", image: "images/bureau-directorial.jpg" }
 ];
 
 /**
@@ -364,17 +365,21 @@ function afficherRealisations(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
     
-    container.innerHTML = realisations.map((r, index) => `
-        <div class="gallery-item animate-on-scroll delay-${(index % 4) + 1}">
-            <div class="image-placeholder" style="font-size:3rem; background: linear-gradient(135deg, #5D4037 0%, #3E2723 100%);">
-                🪵
+    container.innerHTML = realisations.map((r, index) => {
+        const imageHTML = r.image 
+            ? `<img src="${r.image}" alt="${r.titre}" loading="lazy">` 
+            : `<div class="image-placeholder" style="font-size:3rem; background: linear-gradient(135deg, #5D4037 0%, #3E2723 100%);">🪵</div>`;
+
+        return `
+            <div class="gallery-item animate-on-scroll delay-${(index % 4) + 1}">
+                ${imageHTML}
+                <div class="gallery-item__overlay">
+                    <h3 class="gallery-item__title">${r.titre}</h3>
+                    <p class="gallery-item__subtitle">${r.description}</p>
+                </div>
             </div>
-            <div class="gallery-item__overlay">
-                <h3 class="gallery-item__title">${r.titre}</h3>
-                <p class="gallery-item__subtitle">${r.description}</p>
-            </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
     
     // Réinitialiser les animations
     initScrollAnimations();

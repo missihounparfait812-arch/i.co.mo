@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contactez I.CO.MO — Menuiserie professionnelle. Téléphone, WhatsApp, Email et adresse.">
+    <meta name="description"
+        content="Contactez I.CO.MO — Menuiserie professionnelle. Téléphone, WhatsApp, Email et adresse.">
     <title>Contact — I.CO.MO</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
     <!-- ========================================
@@ -67,34 +70,35 @@
             <div class="contact-grid">
                 <!-- Informations de contact -->
                 <div class="contact-info">
-                    <h2 style="font-family: var(--font-heading); font-size: var(--fs-xl); margin-bottom: var(--space-6);">
+                    <h2
+                        style="font-family: var(--font-heading); font-size: var(--fs-xl); margin-bottom: var(--space-6);">
                         Nos coordonnées
                     </h2>
-                    
+
                     <div class="contact-info__item">
                         <div class="contact-info__icon">📞</div>
                         <div>
                             <div class="contact-info__label">Téléphone</div>
-                            <div class="contact-info__value">+225 XX XX XX XX XX</div>
+                            <div class="contact-info__value">+225 01 03 09 16 66</div>
                         </div>
                     </div>
-                    
+
                     <div class="contact-info__item">
                         <div class="contact-info__icon">💬</div>
                         <div>
                             <div class="contact-info__label">WhatsApp</div>
-                            <div class="contact-info__value">+225 XX XX XX XX XX</div>
+                            <div class="contact-info__value">+225 01 03 09 16 66</div>
                         </div>
                     </div>
-                    
+
                     <div class="contact-info__item">
                         <div class="contact-info__icon">📧</div>
                         <div>
                             <div class="contact-info__label">Email</div>
-                            <div class="contact-info__value">contact@icomo.ci</div>
+                            <div class="contact-info__value">missihounparfait@gmail.com</div>
                         </div>
                     </div>
-                    
+
                     <div class="contact-info__item">
                         <div class="contact-info__icon">📍</div>
                         <div>
@@ -102,16 +106,17 @@
                             <div class="contact-info__value">Abidjan, Côte d'Ivoire</div>
                         </div>
                     </div>
-                    
+
                     <div class="contact-info__item">
                         <div class="contact-info__icon">🕐</div>
                         <div>
                             <div class="contact-info__label">Horaires d'ouverture</div>
                             <div class="contact-info__value">Lun — Sam : 08h00 - 18h00</div>
-                            <div class="contact-info__value" style="color: var(--text-muted); font-size: var(--fs-sm);">Dimanche : Fermé</div>
+                            <div class="contact-info__value" style="color: var(--text-muted); font-size: var(--fs-sm);">
+                                Dimanche : Fermé</div>
                         </div>
                     </div>
-                    
+
                     <div style="margin-top: var(--space-8);">
                         <button class="btn btn--whatsapp btn--block btn--lg" onclick="ouvrirWhatsApp()">
                             💬 Contacter I.CO.MO sur WhatsApp
@@ -121,26 +126,29 @@
 
                 <!-- Formulaire de contact -->
                 <div class="contact-form">
-                    <h2 style="font-family: var(--font-heading); font-size: var(--fs-xl); margin-bottom: var(--space-6);">
+                    <h2
+                        style="font-family: var(--font-heading); font-size: var(--fs-xl); margin-bottom: var(--space-6);">
                         Envoyez-nous un message
                     </h2>
-                    
+
                     <form onsubmit="envoyerMessageContact(event)">
                         <div class="form-group">
                             <label class="form-label" for="contact-nom">Nom complet *</label>
-                            <input type="text" id="contact-nom" class="form-input" placeholder="Votre nom complet" required>
+                            <input type="text" id="contact-nom" class="form-input" placeholder="Votre nom complet"
+                                required>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label" for="contact-email">Email</label>
                             <input type="email" id="contact-email" class="form-input" placeholder="votre@email.com">
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label" for="contact-telephone">Téléphone *</label>
-                            <input type="tel" id="contact-telephone" class="form-input" placeholder="Ex: 07 XX XX XX XX" required>
+                            <input type="tel" id="contact-telephone" class="form-input" placeholder="Ex: 07 XX XX XX XX"
+                                required>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label" for="contact-sujet">Sujet</label>
                             <select id="contact-sujet" class="form-select">
@@ -152,12 +160,13 @@
                                 <option value="autre">Autre</option>
                             </select>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label" for="contact-message">Message *</label>
-                            <textarea id="contact-message" class="form-textarea" placeholder="Décrivez votre besoin..." rows="5" required></textarea>
+                            <textarea id="contact-message" class="form-textarea" placeholder="Décrivez votre besoin..."
+                                rows="5" required></textarea>
                         </div>
-                        
+
                         <button type="submit" class="btn btn--primary btn--block btn--lg">
                             📧 Envoyer le message
                         </button>
@@ -213,6 +222,7 @@
     <button class="scroll-top" id="scroll-top" title="Retour en haut">↑</button>
 
     <!-- Scripts -->
+    <script src="js/api.js"></script>
     <script src="js/produits.js"></script>
     <script src="js/panier.js"></script>
     <script src="js/app.js"></script>
@@ -223,18 +233,18 @@
          */
         function envoyerMessageContact(e) {
             e.preventDefault();
-            
+
             const nom = document.getElementById('contact-nom').value.trim();
             const email = document.getElementById('contact-email').value.trim();
             const telephone = document.getElementById('contact-telephone').value.trim();
             const sujet = document.getElementById('contact-sujet').value;
             const messageTexte = document.getElementById('contact-message').value.trim();
-            
+
             if (!nom || !telephone || !messageTexte) {
                 afficherNotification('Veuillez remplir tous les champs obligatoires.', 'error');
                 return;
             }
-            
+
             let message = `Bonjour I.CO.MO,\n\n`;
             message += `📝 MESSAGE DE CONTACT\n\n`;
             message += `Nom : ${nom}\n`;
@@ -242,13 +252,14 @@
             message += `Téléphone : ${telephone}\n`;
             if (sujet) message += `Sujet : ${sujet}\n`;
             message += `\nMessage :\n${messageTexte}\n\nMerci.`;
-            
+
             window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(message)}`, '_blank');
-            
+
             afficherNotification('✓ Message envoyé via WhatsApp !', 'success');
             e.target.reset();
         }
     </script>
 
 </body>
+
 </html>
